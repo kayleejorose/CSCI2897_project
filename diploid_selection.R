@@ -26,7 +26,7 @@ diploid_selection = function(generations, p, q, fitness) {
 #Defining initial conditions, constants, and generations to simulate
 #Defining many values to iterate over a lot of scenarios 
 generations = 50
-p_0 = seq(0, 0.5, 0.01)
+p_0 = c(0, 0.01, seq(0.05, 0.5, 0.05))
 q_0 = 1 - p_0
 #Relative fitness 
 W_AA = c(rep(0.1, 4), 0.2)
@@ -59,11 +59,13 @@ for(i in 1:length(solutions)) {
     df = as.data.frame(df)
     
     #Plotting solution, saving plot as .pdf file 
-    png(file=paste("Calculating Biological Quantities/course_project/figures/scenario", i, ".png", sep=""))
+    png(file=paste("figures/scenario", i, ".png", sep=""))
     print(ggplot(df, aes(x=time)) +
-        geom_point(aes(y=p), color = 'green') +
-        geom_point(aes(y=q), color = 'red') +
+        geom_point(aes(y=p), color = 'green', size=2) +
+        geom_point(aes(y=q), color = 'red', size=2) +
         ylim(0, 1) +
+        ylab(NULL) +
+        xlab(NULL) +
         theme_bw())
     dev.off()
 }
